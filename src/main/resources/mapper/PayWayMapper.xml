@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.romaneekang.boss.mapper.PayWayMapper">
+
+    <resultMap id="BaseResultMap" type="com.romaneekang.boss.domain.PayWay">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="wayCode" column="way_code" jdbcType="VARCHAR"/>
+            <result property="wayName" column="way_name" jdbcType="VARCHAR"/>
+            <result property="typeCode" column="type_code" jdbcType="VARCHAR"/>
+            <result property="typeName" column="type_name" jdbcType="VARCHAR"/>
+            <result property="payProductCode" column="pay_product_code" jdbcType="VARCHAR"/>
+            <result property="payRate" column="pay_rate" jdbcType="DECIMAL"/>
+            <result property="sorts" column="sorts" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="editTime" column="edit_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,way_code,way_name,
+        type_code,type_name,pay_product_code,
+        pay_rate,sorts,status,
+        edit_time,remark
+    </sql>
+</mapper>

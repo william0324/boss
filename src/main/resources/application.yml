@@ -1,0 +1,9 @@
+server:
+  port: 8060
+  servlet:
+    context-path: /boss
+
+# 导入其他配置文件
+spring:
+  config:
+    import: classpath:/conf/mysql.yml

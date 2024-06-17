@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.romaneekang.boss.mapper.DicPayTypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.romaneekang.boss.domain.DicPayType">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="payTypeCode" column="pay_type_code" jdbcType="VARCHAR"/>
+            <result property="payTypeName" column="pay_type_name" jdbcType="VARCHAR"/>
+            <result property="payWayCode" column="pay_way_code" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,pay_type_code,pay_type_name,
+        pay_way_code,remark
+    </sql>
+</mapper>

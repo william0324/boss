@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.romaneekang.boss.mapper.PmsOperatorLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.romaneekang.boss.domain.PmsOperatorLog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="operatorId" column="operator_id" jdbcType="BIGINT"/>
+            <result property="operatorName" column="operator_name" jdbcType="VARCHAR"/>
+            <result property="operateType" column="operate_type" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_time,operator_id,
+        operator_name,operate_type,ip,
+        content,remark,status
+    </sql>
+</mapper>

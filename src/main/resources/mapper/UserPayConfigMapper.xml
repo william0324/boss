@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.romaneekang.boss.mapper.UserPayConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.romaneekang.boss.domain.UserPayConfig">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="userNo" column="user_no" jdbcType="VARCHAR"/>
+            <result property="shopName" column="shop_name" jdbcType="VARCHAR"/>
+            <result property="payProductCode" column="pay_product_code" jdbcType="VARCHAR"/>
+            <result property="payProductName" column="pay_product_name" jdbcType="VARCHAR"/>
+            <result property="riskDay" column="risk_day" jdbcType="INTEGER"/>
+            <result property="appKey" column="app_key" jdbcType="VARCHAR"/>
+            <result property="appSecret" column="app_secret" jdbcType="VARCHAR"/>
+            <result property="merchantServerIp" column="merchant_server_ip" jdbcType="VARCHAR"/>
+            <result property="autoSett" column="auto_sett" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="editTime" column="edit_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_no,shop_name,
+        pay_product_code,pay_product_name,risk_day,
+        app_key,app_secret,merchant_server_ip,
+        auto_sett,remark,edit_time,
+        status
+    </sql>
+</mapper>
