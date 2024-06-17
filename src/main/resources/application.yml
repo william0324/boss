@@ -6,4 +6,4 @@ server:
 # 导入其他配置文件
 spring:
   config:
-    import: classpath:/conf/mysql.yml
+    import: classpath:/conf/mysql.yml,classpath:/conf/redis.yml

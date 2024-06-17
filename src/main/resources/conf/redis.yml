@@ -1,0 +1,16 @@
+spring:
+  data:
+    redis:
+      port: 6379
+      host: 192.168.230.100
+      database: 2
+      password: 2000324
+      # 设置redis连接池
+      lettuce:
+        pool:
+          # 最大的连接数（cpu核心数*2）
+          max-active: 24
+          # 最小连接数
+          max-idle: 24
+          # 超时事件
+          max-wait: 10000ms
