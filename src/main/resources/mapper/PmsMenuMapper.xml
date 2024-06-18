@@ -23,4 +23,10 @@
         url,remark,status,
         edit_time
     </sql>
+    <select id="selectMenuByOperator" resultMap="BaseResultMap">
+        SELECT m.id,is_leaf, level, parent_id, number, name, url, remark, status, edit_time
+        FROM pms_menu m JOIN pms_menu_user r ON m.id = r.menu_id
+        WHERE r.user_id = 1
+        ORDER BY number
+    </select>
 </mapper>
