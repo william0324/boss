@@ -9,6 +9,8 @@ public enum Code {
     OPERATOR_PARAM_ERR(1002,"请求数据错误"),
     OPERATOR_LOGIN_ERR(1003,"登录名称或密码错误"),
     OPERATOR_LOGIN_REDIS_ERR(1004,"登录信息存储异常"),
+    OPERATOR_LOGIN_JWT_INVALID(1005,"jwt无效，请重新登录"),
+
     ;
 
     private final int code;
