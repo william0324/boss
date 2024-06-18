@@ -41,7 +41,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             if (StrUtil.isNotBlank(redisJsonToken)) {
                 JSONObject object = JSONUtil.parseObj(redisJsonToken);
                 String saveJwt = object.getStr("jwt");
-                if (StrUtil.isNotBlank(jwt) && jwtKey.equals(saveJwt)) {
+                if (StrUtil.isNotBlank(jwt) && jwt.equals(saveJwt)) {
                     // jwt有效的
                     return true;
                 }
