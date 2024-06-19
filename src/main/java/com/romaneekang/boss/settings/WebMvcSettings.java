@@ -1,5 +1,6 @@
 package com.romaneekang.boss.settings;
 
+import com.romaneekang.boss.interceptor.MenuInterceptor;
 import com.romaneekang.boss.interceptor.TokenInterceptor;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcSettings implements WebMvcConfigurer {
     @Resource
     private TokenInterceptor tokenInterceptor;
+    @Resource
+    private MenuInterceptor menuInterceptor;
 
     /**
      * 注册拦截器
@@ -20,6 +23,8 @@ public class WebMvcSettings implements WebMvcConfigurer {
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**") //拦截地址,所有请求都拦截
                 .excludePathPatterns("/operator/login");    //登录请求不拦截
+        registry.addInterceptor(menuInterceptor)
+                .addPathPatterns("/operator/menus");
     }
 
     /**

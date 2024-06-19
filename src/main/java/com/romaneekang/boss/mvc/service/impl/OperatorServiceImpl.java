@@ -2,6 +2,7 @@ package com.romaneekang.boss.mvc.service.impl;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.romaneekang.boss.constants.KeyConstant;
 import com.romaneekang.boss.domain.PmsMenu;
@@ -70,6 +71,7 @@ public class OperatorServiceImpl implements OperatorService {
         user.set("loginTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         String loginKey = KeyConstant.OPERATOR_LOGIN + pmsOperator.getId();
+        // 参数 0 表示设置缩进级别为 0,即不添加任何缩进。
         redisUtil.set(loginKey, user.toJSONString(0));
         // 判断redis存储是否出现异常
         String loginJsonValue = redisUtil.get(loginKey);
@@ -126,6 +128,10 @@ public class OperatorServiceImpl implements OperatorService {
             // 顶层菜单形成一个list集合
             subMenus.add(subMenu);
         });
-        return subMenus.stream().sorted(Comparator.comparing(Menu::getNumber)).toList();
+        // 生成菜单并保存到redis
+        List<SubMenu> subMenuList = subMenus.stream().sorted(Comparator.comparing(Menu::getNumber)).toList();
+        String jsonStr = JSONUtil.toJsonStr(subMenuList);
+        redisUtil.set(KeyConstant.OPERATOR_MENUS + operatorId, jsonStr);
+        return subMenuList;
     }
 }
