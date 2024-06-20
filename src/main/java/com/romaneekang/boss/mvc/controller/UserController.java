@@ -2,6 +2,7 @@ package com.romaneekang.boss.mvc.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.romaneekang.boss.convert.UserConvert;
 import com.romaneekang.boss.domain.UserInfo;
 import com.romaneekang.boss.mvc.model.ajax.AjaxResult;
 import com.romaneekang.boss.mvc.model.form.UserEditForm;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private UserConvert userConvert;
 
     /**
      * 处理用户编辑请求。<br>
@@ -49,7 +52,7 @@ public class UserController {
         // 总页数
         long totalPage = pageResult.getPages();
         PageInfo pageInfo = new PageInfo(currentPage, totalPage);
-        Map<String, Object> data = Map.of("list", BeanUtil.copyToList(userList, UserInfoVo.class), "page", pageInfo);
+        Map<String, Object> data = Map.of("list", userConvert.userInfoListToUserInfoVoList(userList), "page", pageInfo);
         return AjaxResult.OK(data);
     }
 }

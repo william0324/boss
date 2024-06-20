@@ -53,5 +53,5 @@ public class UserInfoVo {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private String createTime;
 }
