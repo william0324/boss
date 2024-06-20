@@ -67,4 +67,18 @@ public class UserController {
         UserInfo userInfo = userService.queryByUserNo(userNo);
         return AjaxResult.OK(userConvert.userInfoToQueryUserInfoVo(userInfo));
     }
+
+    @PostMapping("/user/editStatus")
+    public AjaxResult userEditStatus(@RequestParam String userNo) {
+        if (StrUtil.isBlank(userNo)) {
+            return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
+        }
+        // 修改用户状态
+        int i = userService.userEditStatus(userNo);
+        if (i == 1) {
+            return AjaxResult.OK();
+        } else {
+            return AjaxResult.error(Code.USER_EDIT_ERR);
+        }
+    }
 }

@@ -27,4 +27,12 @@ public interface UserService {
     IPage<UserInfo> userPageList(Integer pageNo, Integer pageSize);
 
     UserInfo queryByUserNo(String userNo);
+
+    /**
+     * 根据用户编号修改用户状态。
+     *
+     * @param userNo 用户的唯一标识符。
+     * @return 更新的行数，表示受影响的记录数量。
+     */
+    int userEditStatus(String userNo);
 }

@@ -91,4 +91,24 @@ public class UserServiceImpl implements UserService {
         queryWrapper.eq("user_no", userNo);
         return userInfoMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public int userEditStatus(String userNo) {
+        // 根据用户编号查询用户信息。
+        UserInfo userInfo = queryByUserNo(userNo);
+        if (userInfo == null) {
+            throw new BossException(Code.USER_INVALID_NOT_USE);
+        }
+
+        // 判断当前用户状态，如果为禁用，则切换到启用状态；反之，切换到禁用状态。
+        String newStatus = PublicStatus.DISABLE.name().equals(userInfo.getStatus()) ? PublicStatus.ENABLE.name() : PublicStatus.DISABLE.name();
+
+        // 创建一个新的UserInfo对象用于更新用户状态。
+        UserInfo modifyUser = new UserInfo();
+        modifyUser.setId(userInfo.getId()); // 设置用户的ID。
+        modifyUser.setStatus(newStatus); // 设置新的用户状态。
+
+        // 调用userInfoMapper的updateById方法更新用户状态，并返回更新的行数。
+        return userInfoMapper.updateById(modifyUser);
+    }
 }
