@@ -6,4 +6,8 @@ public class KeyConstant {
      * redis key的规范:    项目名：模块名:功能名:唯一业务参数名(用户id)
      */
     public static final String OPERATOR_LOGIN = "boss:operator:login:";
+    /**
+     * 用户的菜单的key
+     */
+    public static final String OPERATOR_MENUS = "boss:operator:menus:";
 }

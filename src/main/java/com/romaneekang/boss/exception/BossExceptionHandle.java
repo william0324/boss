@@ -27,7 +27,7 @@ public class BossExceptionHandle {
             builder.append(fieldError.getField());
             builder.append("],值错误[");
             builder.append(fieldError.getDefaultMessage());
-            builder.append("]");
+            builder.append("], ");
         });
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setCode(Code.OPERATOR_PARAM_ERR.getCode());
