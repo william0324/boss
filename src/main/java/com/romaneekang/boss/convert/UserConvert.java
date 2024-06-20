@@ -3,6 +3,7 @@ package com.romaneekang.boss.convert;
 
 import com.romaneekang.boss.domain.UserInfo;
 import com.romaneekang.boss.enums.buz.PublicStatus;
+import com.romaneekang.boss.mvc.model.vo.QueryUserInfoVo;
 import com.romaneekang.boss.mvc.model.vo.UserInfoVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,6 +20,8 @@ public interface UserConvert {
             @Mapping(source = "status", target = "status", qualifiedByName = "handleStatus")
     })
     UserInfoVo userInfoToUserInfoVo(UserInfo userInfo);
+
+    QueryUserInfoVo userInfoToQueryUserInfoVo(UserInfo userInfo);
 
     List<UserInfoVo> userInfoListToUserInfoVoList(List<UserInfo> userInfoList);
 

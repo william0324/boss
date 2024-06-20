@@ -1,9 +1,11 @@
 package com.romaneekang.boss.mvc.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.romaneekang.boss.convert.UserConvert;
 import com.romaneekang.boss.domain.UserInfo;
+import com.romaneekang.boss.enums.ajax.Code;
 import com.romaneekang.boss.mvc.model.ajax.AjaxResult;
 import com.romaneekang.boss.mvc.model.form.UserEditForm;
 import com.romaneekang.boss.mvc.model.page.PageInfo;
@@ -54,5 +56,15 @@ public class UserController {
         PageInfo pageInfo = new PageInfo(currentPage, totalPage);
         Map<String, Object> data = Map.of("list", userConvert.userInfoListToUserInfoVoList(userList), "page", pageInfo);
         return AjaxResult.OK(data);
+    }
+
+    @GetMapping("/user/queryByNo")
+    public AjaxResult userQueryByNo(@RequestParam String userNo) {
+        if (StrUtil.isBlank(userNo)) {
+            return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
+        }
+        // 查询用户
+        UserInfo userInfo = userService.queryByUserNo(userNo);
+        return AjaxResult.OK(userConvert.userInfoToQueryUserInfoVo(userInfo));
     }
 }

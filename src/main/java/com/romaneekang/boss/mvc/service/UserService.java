@@ -25,4 +25,6 @@ public interface UserService {
      * @return 返回IPage<UserInfo>对象，其中包含了分页查询的结果。
      */
     IPage<UserInfo> userPageList(Integer pageNo, Integer pageSize);
+
+    UserInfo queryByUserNo(String userNo);
 }

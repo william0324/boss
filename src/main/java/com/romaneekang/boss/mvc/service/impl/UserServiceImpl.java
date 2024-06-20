@@ -84,4 +84,11 @@ public class UserServiceImpl implements UserService {
         return userInfoMapper.selectPage(Page.of(pageNo, pageSize),
                 new QueryWrapper<UserInfo>().orderByDesc("create_time"));
     }
+
+    @Override
+    public UserInfo queryByUserNo(String userNo) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_no", userNo);
+        return userInfoMapper.selectOne(queryWrapper);
+    }
 }
