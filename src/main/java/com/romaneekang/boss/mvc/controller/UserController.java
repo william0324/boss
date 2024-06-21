@@ -3,6 +3,7 @@ package com.romaneekang.boss.mvc.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.romaneekang.boss.constants.BossConst;
 import com.romaneekang.boss.convert.UserConvert;
 import com.romaneekang.boss.domain.UserInfo;
 import com.romaneekang.boss.enums.ajax.Code;
@@ -46,7 +47,7 @@ public class UserController {
         // 对pageNo进行一定的校验
         pageNo = (pageNo == null || pageNo < 1) ? 1 : pageNo;
         // 分页查询
-        IPage<UserInfo> pageResult = userService.userPageList(pageNo, 20);
+        IPage<UserInfo> pageResult = userService.userPageList(pageNo, BossConst.DEFAULT_PAGE_SIZE);
         // 获取本次查询的数据
         List<UserInfo> userList = pageResult.getRecords();
         // 当前页数 == pageNo
