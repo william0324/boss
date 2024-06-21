@@ -6,12 +6,12 @@ import com.romaneekang.boss.constants.BossConst;
 import com.romaneekang.boss.convert.PayProductConvert;
 import com.romaneekang.boss.domain.PayProduct;
 import com.romaneekang.boss.mvc.model.ajax.AjaxResult;
+import com.romaneekang.boss.mvc.model.form.ProductForm;
 import com.romaneekang.boss.mvc.model.page.PageInfo;
 import com.romaneekang.boss.mvc.service.PayProductService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +24,12 @@ public class PayProductController {
     @Resource
     private PayProductConvert payProductConvert;
 
+    /**
+     * 分页查询商品信息。
+     *
+     * @param pageNo 请求的页码数。
+     * @return 包含商品列表和分页信息的AjaxResult对象。
+     */
     @GetMapping("/product/pageList")
     public AjaxResult pageList(@RequestParam Integer pageNo) {
         // 默认第一页
@@ -42,5 +48,10 @@ public class PayProductController {
         PageInfo page = new PageInfo(currentPage, totalPage);
         Map<String, Object> info = Map.of("list", payProductConvert.payProductListToPayProductVoList(payProductList), "page", page);
         return AjaxResult.OK(info);
+    }
+    @PostMapping("/product/add")
+    public AjaxResult productAdd(@RequestBody @Validated ProductForm productForm) {
+        payProductService.productAdd(productForm);
+        return AjaxResult.OK();
     }
 }

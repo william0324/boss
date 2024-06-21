@@ -12,7 +12,10 @@ public enum Code {
     OPERATOR_LOGIN_JWT_INVALID(1005,"jwt无效，请重新登录"),
     USER_LOGIN_NAME_EXIST(1006,"登录名称已存在"),
     USER_INVALID_NOT_USE(1007,"商户不可用"),
-    USER_EDIT_ERR(1007,"编辑商户状态失败"),
+    USER_EDIT_ERR(1008,"编辑商户状态失败"),
+    PRODUCT_CODE_EXIST(1009,"支付产品编码已存在，请更换"),
+    PRODUCT_NAME_EXIST(1010,"支付产品名称已存在，请更换"),
+
     ;
 
     private final int code;

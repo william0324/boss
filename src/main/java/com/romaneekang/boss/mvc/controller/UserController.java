@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class UserController {
@@ -61,6 +62,11 @@ public class UserController {
 
     @GetMapping("/user/queryByNo")
     public AjaxResult userQueryByNo(@RequestParam String userNo) {
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (StrUtil.isBlank(userNo)) {
             return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
         }
