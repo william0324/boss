@@ -8,6 +8,7 @@ import com.romaneekang.boss.domain.PayProduct;
 import com.romaneekang.boss.mvc.model.ajax.AjaxResult;
 import com.romaneekang.boss.mvc.model.form.ProductForm;
 import com.romaneekang.boss.mvc.model.page.PageInfo;
+import com.romaneekang.boss.mvc.model.vo.DicItem;
 import com.romaneekang.boss.mvc.service.PayProductService;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -49,9 +50,28 @@ public class PayProductController {
         Map<String, Object> info = Map.of("list", payProductConvert.payProductListToPayProductVoList(payProductList), "page", page);
         return AjaxResult.OK(info);
     }
+
+    /**
+     * 添加商品信息。
+     * 通过@RequestBody注解，将前端发送的请求体绑定到ProductForm对象上，@Validated注解用于验证绑定的数据是否有效。
+     * 使用@PostMapping注解指定该方法处理的HTTP请求方法为POST，请求路径为/product/add。
+     *
+     * @param productForm 商品信息表单，包含添加商品所需的所有信息。
+     * @return 返回一个AjaxResult对象，表示操作结果。如果操作成功，返回OK表示。
+     */
     @PostMapping("/product/add")
     public AjaxResult productAdd(@RequestBody @Validated ProductForm productForm) {
         payProductService.productAdd(productForm);
         return AjaxResult.OK();
+    }
+
+
+    @GetMapping("/product/dic")
+    public AjaxResult productDic() {
+        // TODO 缓存redis
+        List<PayProduct> payProductList = payProductService.queryDicList();
+        // 转为DicItem
+        List<DicItem> dicItems = payProductConvert.payProductListToDicItemList(payProductList);
+        return AjaxResult.OK(dicItems);
     }
 }

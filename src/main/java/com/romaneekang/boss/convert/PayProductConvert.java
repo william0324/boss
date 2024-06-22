@@ -1,6 +1,7 @@
 package com.romaneekang.boss.convert;
 
 import com.romaneekang.boss.domain.PayProduct;
+import com.romaneekang.boss.mvc.model.vo.DicItem;
 import com.romaneekang.boss.mvc.model.vo.PayProductVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,4 +19,11 @@ public interface PayProductConvert {
 
     List<PayProductVo> payProductListToPayProductVoList(List<PayProduct> payProductList);
 
+    @Mappings({
+            @Mapping(source = "productCode", target = "code"),
+            @Mapping(source = "productName", target = "label")
+    })
+    DicItem payProductToDicItem(PayProduct payProduct);
+
+    List<DicItem> payProductListToDicItemList(List<PayProduct> payProductList);
 }

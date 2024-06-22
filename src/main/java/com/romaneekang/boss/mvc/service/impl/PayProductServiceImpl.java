@@ -15,14 +15,16 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PayProductServiceImpl implements PayProductService {
     @Resource
     private PayProductMapper payProductMapper;
+
     @Override
     public IPage<PayProduct> payProductPageList(Integer pageNo, Integer pageSize) {
-        return payProductMapper.selectPage(Page.of(pageNo,pageSize),new QueryWrapper<PayProduct>().orderByDesc("edit_time"));
+        return payProductMapper.selectPage(Page.of(pageNo, pageSize), new QueryWrapper<PayProduct>().orderByDesc("edit_time"));
     }
 
     @Override
@@ -31,12 +33,12 @@ public class PayProductServiceImpl implements PayProductService {
         String productCode = productForm.getProductCode().trim();
         String productName = productForm.getProductName().trim();
         QueryWrapper<PayProduct> queryWrapper = new QueryWrapper<PayProduct>();
-        queryWrapper.eq("product_code",productCode);
+        queryWrapper.eq("product_code", productCode);
         if (payProductMapper.selectOne(queryWrapper) != null) {
             throw new BossException(Code.PRODUCT_CODE_EXIST);
         }
         QueryWrapper<PayProduct> queryWrapper1 = new QueryWrapper<PayProduct>();
-        queryWrapper1.eq("product_name",productName);
+        queryWrapper1.eq("product_name", productName);
         if (payProductMapper.selectOne(queryWrapper1) != null) {
             throw new BossException(Code.PRODUCT_NAME_EXIST);
         }
@@ -48,5 +50,12 @@ public class PayProductServiceImpl implements PayProductService {
         payProduct.setStatus(PublicStatus.DISABLE.name());
         payProduct.setEditTime(new Date());
         payProductMapper.insert(payProduct);
+    }
+
+    @Override
+    public List<PayProduct> queryDicList() {
+        return payProductMapper.selectList(new QueryWrapper<PayProduct>()
+                .select("product_code", "product_name")
+                .orderByAsc("product_code"));
     }
 }
