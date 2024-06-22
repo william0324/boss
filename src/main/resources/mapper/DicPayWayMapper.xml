@@ -15,4 +15,7 @@
         id,pay_way_code,pay_way_name,
         remark
     </sql>
+    <select id="selectDicList" resultType="com.romaneekang.boss.mvc.model.vo.DicItem">
+        select pay_way_code as code,pay_way_name as label from dic_pay_way order by pay_way_code
+    </select>
 </mapper>

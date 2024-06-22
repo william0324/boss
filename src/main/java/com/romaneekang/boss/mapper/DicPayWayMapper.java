@@ -2,6 +2,9 @@ package com.romaneekang.boss.mapper;
 
 import com.romaneekang.boss.domain.DicPayWay;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.romaneekang.boss.mvc.model.vo.DicItem;
+
+import java.util.List;
 
 /**
 * @author weika
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface DicPayWayMapper extends BaseMapper<DicPayWay> {
 
+    List<DicItem> selectDicList();
 }
 
 
