@@ -2,6 +2,10 @@ package com.romaneekang.boss.mapper;
 
 import com.romaneekang.boss.domain.DicPayType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.romaneekang.boss.domain.PayWay;
+import com.romaneekang.boss.domain.result.PayTypeGroupContent;
+
+import java.util.List;
 
 /**
 * @author weika
@@ -10,7 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.romaneekang.boss.domain.DicPayType
 */
 public interface DicPayTypeMapper extends BaseMapper<DicPayType> {
-
+    List<PayTypeGroupContent> selectGroupPayWayContent();
 }
 
 

@@ -16,4 +16,13 @@
         id,pay_type_code,pay_type_name,
         pay_way_code,remark
     </sql>
+    <select id="selectGroupPayWayContent" resultType="com.romaneekang.boss.domain.result.PayTypeGroupContent">
+        SELECT
+            pay_way_code AS payWayCode,
+            GROUP_CONCAT( pay_type_code, ";", pay_type_name ORDER BY pay_type_code SEPARATOR "#" ) AS content
+        FROM
+            dic_pay_type
+        GROUP BY
+            payWayCode
+    </select>
 </mapper>
