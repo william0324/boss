@@ -15,4 +15,6 @@ public interface PayWayService {
     int addProductPayWayConfig(ConfigPayWayForm configPayWayForm);
 
     IPage<PayWay> pageList(String productCode, Integer pageNo, Integer pageSize);
+
+    void removePayWayConfig(String payWayId);
 }

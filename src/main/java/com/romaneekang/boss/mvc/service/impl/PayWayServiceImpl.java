@@ -75,4 +75,9 @@ public class PayWayServiceImpl implements PayWayService {
         }
         return payWayMapper.selectPage(Page.of(pageNo, pageSize),queryWrapper);
     }
+
+    @Override
+    public void removePayWayConfig(String payWayId) {
+        payWayMapper.deleteById(payWayId);
+    }
 }

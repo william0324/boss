@@ -64,4 +64,13 @@ public class PayWayController {
         Map<String, Object> result = Map.of("page", pageInfo, "list", payWayVos);
         return AjaxResult.OK(result);
     }
+
+    @PostMapping("/config/remove")
+    public AjaxResult removePayWayConfig(@RequestParam String payWayId) {
+        if (StrUtil.isNotBlank(payWayId)) {
+            payWayService.removePayWayConfig(payWayId);
+            return AjaxResult.OK();
+        }
+        return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
+    }
 }
