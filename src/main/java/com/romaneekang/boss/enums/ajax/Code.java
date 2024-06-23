@@ -15,6 +15,7 @@ public enum Code {
     USER_EDIT_ERR(1008,"编辑商户状态失败"),
     PRODUCT_CODE_EXIST(1009,"支付产品编码已存在，请更换"),
     PRODUCT_NAME_EXIST(1010,"支付产品名称已存在，请更换"),
+    PRODUCT_WAY_TYPE_EXIST(1011,"支付产品已经配置了相同的支付方式和类型"),
 
     ;
 

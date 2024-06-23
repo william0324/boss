@@ -15,9 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -34,6 +32,15 @@ public class PowerBossApplication implements CommandLineRunner {
      * 支付方式类型 key是payWayCode,value是类型的所有数据
      */
     public static Map<String, List<DicItem>> DIC_PAY_TYPE_MAP;
+
+    /**
+     *  支付方式code 和名称 key是payWayCode,value是对应的payWayName
+     */
+    public static Map<String, String> DIC_PAY_WAY_NAME_MAP;
+    /**
+     * 支付类型name key是payWayCode:payTypeCode,value是payTypeName
+     */
+    public static Map<String, String> DIC_PAY_TYPE_NAME_MAP = new HashMap<>();
 
     /**
      * 添加分页插件
@@ -54,25 +61,39 @@ public class PowerBossApplication implements CommandLineRunner {
         // 读取dic_pay_way表的数据，缓存到内存中
         DicPayWayMapper dicPayWayMapper = applicationContext.getBean(DicPayWayMapper.class);
         DIC_PAY_WAY_LIST = dicPayWayMapper.selectDicList();
+        // 存储pay_way_code和pay_way_name到map中
+        DIC_PAY_WAY_NAME_MAP = DIC_PAY_WAY_LIST
+                .stream()
+                .collect(Collectors.toMap(DicItem::getCode, DicItem::getLabel));
+
         // 读取dic_pay_type表的数据，缓存到内存中
         DicPayTypeMapper dicPayTypeMapper = applicationContext.getBean(DicPayTypeMapper.class);
         List<PayTypeGroupContent> payTypeGroupContents = dicPayTypeMapper.selectGroupPayWayContent();
         // 得到分组数据 F2F_PAY;条码支付#HUA_BEI_FEN_QI_PAY;花呗分期
         DIC_PAY_TYPE_MAP = payTypeGroupContents
                 .stream()
-                .collect(Collectors
-                        .groupingBy(PayTypeGroupContent::getPayWayCode,
-                                Collectors.mapping(payTypeGroupContent -> {
-                                    DicItem dicItem = new DicItem();
+                .collect(Collectors.groupingBy(
+                        PayTypeGroupContent::getPayWayCode,
+                        Collectors.flatMapping(
+                                payTypeGroupContent -> {
                                     String[] groupItem = payTypeGroupContent.getContent().split("#");
-                                    Arrays.stream(groupItem).forEach(s -> {
-                                        String[] payWayItem = s.split(";");
-                                        dicItem.setCode(payWayItem[0]);
-                                        dicItem.setLabel(payWayItem[1]);
-                                    });
-                                    return dicItem;
-                                },Collectors.toList())));
-        System.out.println("DIC_PAY_TYPE_MAP = " + DIC_PAY_TYPE_MAP);
+                                    return Arrays.stream(groupItem)
+                                            .map(s -> {
+                                                String[] payWayItem = s.split(";");
+                                                DicItem dicItem = new DicItem();
+                                                dicItem.setCode(payWayItem[0]);
+                                                dicItem.setLabel(payWayItem[1]);
+                                                return dicItem;
+                                            });
+                                }, Collectors.toList()))
+                );
+        // 存储key是payWayCode:payTypeCode,value是payTypeName到map中
+        DIC_PAY_TYPE_MAP.forEach((payWayCode, payTypeList) -> {
+            payTypeList.forEach(payType -> {
+                DIC_PAY_TYPE_NAME_MAP.put(payWayCode + ":" + payType.getCode(), payType.getLabel());
+            });
+        });
+        System.out.println("payTypeGroupContents = " + payTypeGroupContents);
     }
 
     public static void main(String[] args) {
