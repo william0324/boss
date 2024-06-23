@@ -21,4 +21,6 @@ public interface PayProductService {
      * @return List<PayProduct> 返回一个支付产品列表，列表项包括产品代码和产品名称。
      */
     List<PayProduct> queryDicList();
+
+    void productRemove(String productCode);
 }

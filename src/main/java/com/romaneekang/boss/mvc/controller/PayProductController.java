@@ -1,10 +1,12 @@
 package com.romaneekang.boss.mvc.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.romaneekang.boss.constants.BossConst;
 import com.romaneekang.boss.convert.PayProductConvert;
 import com.romaneekang.boss.domain.PayProduct;
+import com.romaneekang.boss.enums.ajax.Code;
 import com.romaneekang.boss.mvc.model.ajax.AjaxResult;
 import com.romaneekang.boss.mvc.model.form.ProductForm;
 import com.romaneekang.boss.mvc.model.page.PageInfo;
@@ -73,5 +75,14 @@ public class PayProductController {
         // 转为DicItem
         List<DicItem> dicItems = payProductConvert.payProductListToDicItemList(payProductList);
         return AjaxResult.OK(dicItems);
+    }
+
+    @PostMapping("/product/remove")
+    public AjaxResult productRemove(@RequestParam String productCode) {
+        if (StrUtil.isNotBlank(productCode)) {
+            payProductService.productRemove(productCode);
+            return AjaxResult.OK();
+        }
+        return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
     }
 }
