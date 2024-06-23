@@ -23,4 +23,6 @@ public interface PayProductService {
     List<PayProduct> queryDicList();
 
     void productRemove(String productCode);
+
+    void editStatus(String productCode);
 }

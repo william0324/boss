@@ -85,4 +85,13 @@ public class PayProductController {
         }
         return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
     }
+
+    @PostMapping("/product/editStatus")
+    public AjaxResult productEditStatus(@RequestParam String productCode) {
+        if (StrUtil.isNotBlank(productCode)) {
+            payProductService.editStatus(productCode);
+            return AjaxResult.OK();
+        }
+        return AjaxResult.error(Code.OPERATOR_PARAM_ERR);
+    }
 }

@@ -78,4 +78,21 @@ public class PayProductServiceImpl implements PayProductService {
         // 删除产品对应的支付方式
         payWayMapper.delete(new QueryWrapper<PayWay>().eq("pay_product_code", productCode));
     }
+
+    @Override
+    public void editStatus(String productCode) {
+        // 先查看产品有没有
+        PayProduct payProduct = payProductMapper.selectOne(new QueryWrapper<PayProduct>().eq("product_code", productCode));
+        if (payProduct == null) {
+            throw new BossException(Code.PRODUCT_NOT_EXIST);
+        }
+        String newStatus = PublicStatus.ENABLE.name();
+        if (payProduct.getStatus().equals(PublicStatus.ENABLE.name())) {
+            newStatus = PublicStatus.DISABLE.name();
+        }
+        UpdateWrapper<PayProduct> updateWrapper = new UpdateWrapper<PayProduct>();
+        updateWrapper.eq("product_code", productCode);
+        updateWrapper.set("status", newStatus);
+        payProductMapper.update(updateWrapper);
+    }
 }
