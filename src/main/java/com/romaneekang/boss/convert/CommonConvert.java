@@ -16,4 +16,13 @@ public class CommonConvert {
         }
         return res;
     }
+    @Named("handleAutoSett")
+    public String handleAutoSett(String autoSett) {
+        if ("YES".equals(autoSett)) {
+            return "是";
+        } else if ("NO".equals(autoSett)) {
+            return "否";
+        }
+        return "未知";
+    }
 }
